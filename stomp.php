@@ -29,7 +29,6 @@ while (true) {
     $frame = $stomp->readFrame();
     if (! $frame) continue; // Timeout
 
-    $a = array();
     try {
         $m = new Marshal();
         $a = $m->load($frame->body);    // Decode frame body
@@ -45,6 +44,7 @@ while (true) {
 
     } catch(MarshalException $e) {
         print "Exception: ".$e->getMessage()."\n";
+        continue;
     }
     $frame->body = $a;
 
